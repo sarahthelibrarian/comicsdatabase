@@ -1,1 +1,337 @@
+#SQL commands are in here
+SQL Statements:
+
+Building tables:
+
+
+Frequent_customer:
+create table frequent_customer (
+freq_cust_ID int(4) NOT NULL auto_increment,
+freq_custlname varchar(50),
+freq_custfname varchar (50),
+freq_custphone varchar(20),
+freq_custemail varchar(50),
+primary key (freq_cust_ID)
+);
+alter table frequent_customer
+add column lastcreditdate date;
+Alter table frequent_customer
+Add column frequent_custnotes varchar (1000);
+
+Frequent_orders: 
+create table frequent_orders (
+freqorder_num int(5) NOT NULL auto_increment,
+freq_booktitle varchar (250),
+freq_bookpub varchar (50),
+freq_cost decimal (10,2),
+freq_orderdate date,
+freq_cust_ID int(4),
+primary key (freqorder_num),
+foreign key (freq_cust_ID) references frequent_customer (freq_cust_ID)
+);
+
+Products:
+create table products (
+product_ID int(7) NOT NULL auto_increment,
+product_cost decimal(10,2),
+product_stock enum ('yes', 'no'),
+Product_count int(11),
+primary key (product_ID) );
+
+Frequent_orders_products:
+
+create table frequent_orders_products (
+freqorder_num INT (5) NOT NULL,
+product_ID int(7) NOT NULL,
+constraint PK_freq_orders_products PRIMARY KEY (freqorder_num, product_ID),
+foreign key (freqorder_num) references frequent_orders (freqorder_num),
+foreign key (product_ID) references products (product_ID)
+);
+
+
+Graphic_novel:
+create table graphic_novel (
+product_ID int(7) NOT NULL
+graphic_noveltitle varchar (250),
+graphic_novellnamewriter varchar(50),
+graphic_novelfnamewriter varchar (50),
+graphic_novelpub varchar(50),
+graphic_novelpurchased enum ('yes', 'no')
+primary key (product_ID)
+);
+
+Comics:
+create table comics (
+product_ID int(7) NOT NULL 
+comictitle varchar (250),
+comiclnamewriter varchar(50),
+comicfnamewriter varchar (50),
+comicpub varchar(50),
+primary key (product_ID)
+);
+
+
+
+Pull_customers:
+create table pull_customers (
+pull_list_num int(5) NOT NULL auto_increment,
+pull_lname varchar (50),
+pull_fname varchar(50),
+pull_phone varchar (20),
+pull_email varchar(50),
+pull_notes varchar(1000),
+pull_PUdate date,
+primary key (pull_list_num) );
+
+
+Pull_comics:
+create table pull_comics (
+product_ID INT (7) NOT NULL,
+pull_list_num int(5) NOT NULL,
+constraint PK_pull_comics PRIMARY KEY (product_ID, pull_list_num),
+foreign key (product_ID) references comics (product_ID),
+foreign key (pull_list_num) references pull_customers (pull_list_num)
+);
+
+
+
+Adding data: 
+
+Frequent_customer: 
+
+insert into frequent_customer (freq_custlname, freq_custfname, lastcreditdate)
+values ("Bacon", "Aaron", "2017-12-31")
+insert into frequent_customer (freq_custlname, freq_custfname, freq_custphone, freq_custemail, lastcreditdate)
+values ("Thompson", "Cheyenne", "603-555-5555", "cheyenne@fake.com", "2019-12-28");
+insert into frequent_customer (freq_custlname, freq_custfname, lastcreditdate)
+values ("Chakmakian", "Aaron", "2019-12-28");
+insert into frequent_customer (freq_custlname, freq_custfname, lastcreditdate)
+values ("Bradford", "Aaron", "2017-12-26");
+insert into frequent_customer (freq_custlname, freq_custfname, lastcreditdate)
+values ("Davis", "Aaron", "2018-10-27");
+insert into frequent_customer (freq_custlname, freq_custfname, lastcreditdate)
+values ("Firpo", "Aaron", "2016-07-24");
+insert into frequent_customer (freq_custlname, freq_custfname, lastcreditdate)
+values ("Groetsema", "Aaron", "2018-12-8");
+insert into frequent_customer (freq_custlname, freq_custfname, lastcreditdate)
+values ("Miller", "Aaron", "2016-10-01");
+
+Frequent_orders: 
+insert into frequent_orders (freq_booktitle, freq_bookpub, freq_cost, freq_orderdate, freq_cust_ID)
+values ("Saga Hardcover 2", "Image", 60.00, "2017-04-29", 2);
+insert into frequent_orders (freq_booktitle, freq_bookpub, freq_cost, freq_orderdate, freq_cust_ID)
+values ("Howard the Duck HC", "DC Comics", 30.00, "2018-01-03", 2);
+insert into frequent_orders (freq_booktitle, freq_bookpub, freq_cost, freq_orderdate, freq_cust_ID)
+values ("Rat Queens volume 1", "Image", 9.99, "2019-05-29", 2);
+insert into frequent_orders (freq_booktitle, freq_bookpub, freq_cost, freq_orderdate, freq_cust_ID)
+values ("Trish Trash: Roller Girl of Mars", "Super Genius", 14.99, "2018-04-16", 1);
+insert into frequent_orders (freq_booktitle, freq_bookpub, freq_cost, freq_orderdate, freq_cust_ID)
+values ("Y the Last Man Volume 1", "Image", 19.99, "2018-04-29", 6);
+insert into frequent_orders (freq_booktitle, freq_bookpub, freq_cost, freq_orderdate, freq_cust_ID)
+values ("Boundless", "Drawn and Quarterly", 24.95, "2019-12-19", 5);
+insert into frequent_orders (freq_booktitle, freq_bookpub, freq_cost, freq_orderdate, freq_cust_ID)
+values ("Poppy! And the Lost Lagoon", "Dark Horse", 14.99, "2019-05-05", 5);
+insert into frequent_orders (freq_booktitle, freq_bookpub, freq_cost, freq_orderdate, freq_cust_ID)
+values ("Locke and Key: Vol 3", "IDW", 19.99, "2016-07-16", 1);
+insert into frequent_orders (freq_booktitle, freq_bookpub, freq_cost, freq_orderdate, freq_cust_ID)
+values ("Batgirl and Robin", "DC Comics", 24.99, "2018-01-24", 1);
+insert into frequent_orders (freq_booktitle, freq_bookpub, freq_cost, freq_orderdate, freq_cust_ID)
+values ("Batgirl and Robin", "DC Comics", 24.99, "2015-01-24", 2);
+insert into frequent_orders (freq_booktitle, freq_bookpub, freq_cost, freq_orderdate, freq_cust_ID)
+values ("She Changed Comics", "Image", 14.99, "2017-12-24", 3);
+insert into frequent_orders (freq_booktitle, freq_bookpub, freq_cost, freq_orderdate, freq_cust_ID)
+values ("The Umbrella Academy", "Dark Horse", 19.99, "2016-12-20", 4);
+insert into frequent_orders (freq_booktitle, freq_bookpub, freq_cost, freq_orderdate, freq_cust_ID)
+values ("Wicked and Divine: The Faust Act", "Image", 9.99, "2017-8-20", 7);
+
+Graphic_novel:
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("Boundless", "Tamaki", "Jillian", "Drawn & Quarterly", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("Trish Trash: Roller Girl of Mars", "Abel", "Jessica", "Super Genius", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased
+values ("Y the Last Man Volume 1", "Vaughan", "Brian K", "Vertigo") ;
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("Green Arrow: Quiver", "Smith", "Kevin", "DC Comics", "no");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("Batgirl: The Greatest Story Ever Told", "Fox", "Gardener", "DC Comics", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("Jessica Jones: Alias Volume 1", "Bendis", "Brian Michael", "Marvel Comics", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("Jessica Jones: Alias Volume 2", "Bendis", "Brian Michael", "Marvel Comics", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("Jessica Jones: Alias Volume 3", "Bendis", "Brian Michael", "Marvel Comics", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("Jessica Jones: Alias Volume 4", "Bendis", "Brian Michael", "Marvel Comics", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("Outcast: Volume 1", "Kirkman", "Robert", "Image", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("The Family Trade", "Jordan", "Justin", "Image", "no");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("Saga Hardcover 2", "Vaughan", "Brian K", "Image", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("Howard the Duck HC", "Gerber", "Steve", "DC Comics", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("Rat Queens Volume 1", "Wiebe", "Kurtis J", "Image", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchase)
+values ("Poppy! And the Lost Lagoon", "Kindt", "Matt", "Dark Horse", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("Locke and Key: Volume 3", "Hill", "Joe", "IDW", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("Batgirl and Robin", "Beatty", "Scott", "DC Comics", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("She Changed Comics", "Gomez", "Betsy", "Image", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("The Umbrella Academy", "Way", "Gerard", "Dark Horse", "yes");
+insert into graphic_novel (graphic_noveltitle, graphic_novellnamewriter, graphic_novelfnamewriter, graphic_novelpub, graphic_novelpurchased)
+values ("Wicked and Divine: The Faust Act", "Gillen", "Kieron", "Image", "yes");
+
+Comics:
+insert into comics (comictitle, comiclnamewriter, comicfnamewriter, comicpub)
+values ("Paper Girls #17", "Vaughan", "Brian K", "Image");
+insert into comics (comictitle, comiclnamewriter, comicfnamewriter, comicpurchase_date)
+values ("Snot Girl #9", "O'Malley", "Brian Lee", "Image");
+insert into comics (comictitle, comiclnamewriter, comicfnamewriter, comicpub)
+values ("Slam: The Next Jam #1", "Ribon", "Pamela", "Boom! Box");
+insert into comics (comictitle, comiclnamewriter, comicfnamewriter, comicpub)
+values ("Sleepless #1", "Vaughan", "Sarah", "Image");
+insert into comics (comictitle, comiclnamewriter, comicfnamewriter, comicpub)
+values ("Supergirl Being Super #4", "Tamaki", "Mariko", "DC Comics");
+insert into comics (comictitle, comiclnamewriter, comicfnamewriter, comicpub)
+values ("Star Wars: The Storms of Crait #1", "Acker", "Ben", "Marvel Comics");
+insert into comics (comictitle, comiclnamewriter, comicfnamewriter, comicpub)
+values ("Bitch Planet: Triple Feature #1", "DeConnick", "Kate", "Image");
+insert into comics (comictitle, comiclnamewriter, comicfnamewriter, comicpub)
+values ("Domino #1", "Simone", "Gail", "Marvel Comics");
+insert into comics (comictitle, comiclnamewriter, comicfnamewriter)
+values ("Sex Criminals #20", "Fraction", "Matt", "Image");
+
+Pull Customers:
+insert into pull_customers (pull_lname, pull_fname, pull_email, pull_phone)
+values ('Silva', 'Aby', 'none@gmail.com', '6039883957');
+insert into pull_customers (pull_lname, pull_fname, pull_email, pull_phone)
+values ('Hart', 'Aden', 'rshart.12@gmail.com', '603686728');
+insert into pull_customers (pull_lname, pull_fname, pull_email, pull_phone)
+values ('Allwarden', 'Sarah', 'sarahallwarden@gmail.com', '6034185502');
+insert into pull_customers (pull_lname, pull_fname, pull_email, pull_phone)
+values ('Salazar', 'Daniel', 'vinnydoombats@gmail.com', '9787038651');
+insert into pull_customers (pull_lname, pull_fname, pull_email, pull_phone)
+values ('Kelleher', 'Emily', 'none@gmail.com', '6039230921');
+insert into pull_customers (pull_lname, pull_fname, pull_email, pull_phone)
+values ('Maher', 'Eric', 'none@gmail.com', '9789949116');
+
+Products:
+insert into products (product_ID, product_cost, product_stock)
+values (1, 24.95, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (2, 14.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (3, 14.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (4, 19.95, 'yes');
+insert into products (product_ID, product_cost, product_stock)
+values (5, 19.95, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (6, 19.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (7, 19.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (8, 19.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (9, 19.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (10, 9.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (11, 9.99, 'yes');
+insert into products (product_ID, product_cost, product_stock)
+values (101, 2.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (102, 3.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (103, 3.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (104, 2.99, 'yes');
+insert into products (product_ID, product_cost, product_stock)
+values (105, 4.99, 'yes');
+insert into products (product_ID, product_cost, product_stock)
+values (106, 3.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (107, 3.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (108, 3.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (109, 2.99, 'yes');
+insert into products (product_ID, product_cost, product_stock)
+values (12, 60.00, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (13, 30.00, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (14, 9.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (15, 14.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (16, 19.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (17, 24.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (18, 14.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (19, 19.99, 'no');
+insert into products (product_ID, product_cost, product_stock)
+values (20, 9.99, 'no');
+
+
+Pull_comics:
+insert into pull_comics (product_ID, pull_list_num)
+values (101, 3);
+insert into pull_comics (product_ID, pull_list_num)
+values (102, 3);
+insert into pull_comics (product_ID, pull_list_num)
+values (101, 4);
+insert into pull_comics (product_ID, pull_list_num)
+values (102, 4);
+insert into pull_comics (product_ID, pull_list_num)
+values (108, 5);
+insert into pull_comics (product_ID, pull_list_num)
+values (109, 4);
+insert into pull_comics (product_ID, pull_list_num)
+values (101, 1);
+insert into pull_comics (product_ID, pull_list_num)
+values (107, 5);
+insert into pull_comics (product_ID, pull_list_num)
+values (107, 2);
+insert into pull_comics (product_ID, pull_list_num)
+values (102, 1);
+insert into pull_comics (product_ID, pull_list_num)
+values (106, 6);
+
+Frequent_orders_products:
+insert into frequent_orders_products (freqorder_num, product_ID)
+values (1, 12);
+insert into frequent_orders_products (freqorder_num, product_ID)
+values (2, 13);
+insert into frequent_orders_products (freqorder_num, product_ID)
+values (3, 14);
+insert into frequent_orders_products (freqorder_num, product_ID)
+values (4, 2);
+insert into frequent_orders_products (freqorder_num, product_ID)
+values (5, 3);
+insert into frequent_orders_products (freqorder_num, product_ID)
+values (6, 1);
+insert into frequent_orders_products (freqorder_num, product_ID)
+values (7, 15);
+insert into frequent_orders_products (freqorder_num, product_ID)
+values (8, 16);
+insert into frequent_orders_products (freqorder_num, product_ID)
+values (9, 17);
+insert into frequent_orders_products (freqorder_num, product_ID)
+values (10, 17);
+insert into frequent_orders_products (freqorder_num, product_ID)
+values (11, 18);
+insert into frequent_orders_products (freqorder_num, product_ID)
+values (12, 19);
+insert into frequent_orders_products (freqorder_num, product_ID)
+values (13, 20);
+
+
 
