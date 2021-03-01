@@ -1,0 +1,61 @@
+<html>
+  <head>
+    <link rel='stylesheet' type='text/css' href='stairway.css'>
+  </head>
+<body>
+  <center><h2> Stairway to Heaven Comics</h2></center>
+  <center><h3>Search Pull Lists</h3></center>
+  <nav>
+    <ul class = 'nav'>
+      <li class = 'li'><a href = home.html class ="navlink">Home</a></li>
+        <div class='dropdown'>
+          <li class = 'li'><a class ="navlink">
+         <button class="dropbtn">Frequent Customers </a>
+         <i class='fa fa-caret-down'></i>
+       </button>
+     </li>
+       <div class= 'dropdown-content'>
+         <a href='frequentcustomerform.html'>Add Frequent Customer</a>
+         <a href='frequentcustomerhistoryform.html'>Update/Find Frequent Customer Page</a>
+         <a href='freqcustdisplay.php'>All Frequent Customer Records</a>
+       </div>
+    </div>
+    <div class='dropdown'>
+       <li class = 'li'><a class ="navlink">
+         <button class="dropbtn">Pull Lists </a>
+         <i class='fa fa-caret-down'></i>
+       </button>
+     </li>
+     <div class= 'dropdown-content'>
+       <a href = 'pullcustomerform.html'>Add Pull Customer</a>
+       <a href= 'pulllistsearch.html'>Update/Find Pull Customer Page</a>
+       <a href = 'plistdata.php'>All Pull List Customer Data</a>
+     </div>
+     </div>
+     <div class='dropdown'>
+        <li class = 'li'><a class ="navlink">
+          <button class="dropbtn">Inventory </a>
+          <i class='fa fa-caret-down'></i>
+        </button>
+      </li>
+      <div class= 'dropdown-content'>
+        <a href='inventoryform.html'>Add Product</a>
+        <a href = 'productsearch.html'> Search/Update Product </a>
+        <a href='comicdata.php'> All Comics Inventory Data</a>
+        <a href='graphicnoveldata.php'> All Graphic Novel/Trade Paper Back Inventory Data</a>
+      </div>
+      </div>
+  </nav>
+<!-- This query will help locate a specific customer's pull list-->
+<div class = 'formshtml'>
+<form action="plistfull.php" method="post">
+  <label for="pull_lname"> Last Name: </label>
+  <input type ="text" id = "pull_lname" name ="pull_lname"minlength = "1" maxlength = "50">
+  <label for = "pull_fname"> First Name: </label>
+  <input type = "text" id = "pull_fname" name ="pull_fname" minlength = "1" maxlength= "50"><br><br>
+  <input type="submit" value = "Submit"/>
+</form>
+</div>
+
+</body>
+</html>
